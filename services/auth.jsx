@@ -141,16 +141,3 @@ export const RegisterService = async (userInfo) => {
     throw error;
   }
 };
-
-// Dummy User
-// {
-//   "success": true,
-//   "message": "User registered successfully with email aqibmaroof786@gmail.com and phone +14547260592",
-//   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWphZHNxa2swMDAwdHlhcHY3c3ZuNGx0IiwiZW1haWwiOiJhcWlibWFyb29mNzg2QGdtYWlsLmNvbSIsInBob25lIjoiKzE0NTQ3MjYwNTkyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1OTk4MzEyLCJleHAiOjE3NjU5OTkyMTJ9.s8P2U9Wa9yyNJQuej0Q2m4lyL6FB5QU1kbgTyqLbRXw",
-//   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWphZHNxa2swMDAwdHlhcHY3c3ZuNGx0IiwiZW1haWwiOiJhcWlibWFyb29mNzg2QGdtYWlsLmNvbSIsInBob25lIjoiKzE0NTQ3MjYwNTkyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1OTk4MzEyLCJleHAiOjE3NjY2MDMxMTJ9.6KHUHYF9C9RBOyz1LT6k4hOAtL7dOW-F3qBlY1QMN00",
-//   "role": "admin",
-//   "userId": "cmjadsqkk0000tyapv7svn4lt",
-//   "emailVerified": false,
-//   "phoneVerified": false,
-//   "profileComplete": false
-// }
