@@ -7,11 +7,22 @@ import config from "../../config";
 import { useEffect, useState } from "react";
 import {
   clearTokens,
-  getAccessToken,
+  setTokens,
+  setUser,
 } from "../../services/instance/tokenService";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { getUser } from "../../services/instance/tokenService";
-import { Logout } from "@/services/auth";
+
+// Mock user data for local storage flow
+const MOCK_USER = {
+  id: "local-user-1",
+  firstName: "Admin",
+  lastName: "User",
+  email: "admin@coresynaptics.com",
+  organizationName: "CoreSynaptics",
+  platformRole: "SUPERADMIN",
+  activeRole: { name: "SUPERADMIN" },
+};
 
 // Map pathnames to page titles
 const PAGE_TITLES = {
@@ -44,10 +55,10 @@ const DASH_TABS = [
 const Layout = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
   const [search, setSearch] = useState("");
   const [theme, setTheme] = useState("dark");
-  const user = JSON.parse(getUser());
+  const userStr = getUser();
+  const user = userStr ? JSON.parse(userStr) : MOCK_USER;
 
   const pageTitle =
     PAGE_TITLES[pathname] ??
@@ -61,20 +72,21 @@ const Layout = ({ children }) => {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
-  }, []);
-
-  useEffect(() => {
-    if (!getAccessToken()) router.replace("/Auth/Login");
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await Logout();
-      clearTokens();
-      router.push("/Auth/Login");
-    } catch (error) {
-      console.error("Logout failed:", error);
+    
+    // Auto-setup mock user for local storage flow (no auth required)
+    const existingUser = getUser();
+    if (!existingUser) {
+      setTokens({ accessToken: "local-mock-token", refreshToken: "local-mock-refresh" });
+      setUser({ user: MOCK_USER });
+      window.location.reload();
     }
+  }, []);
+
+  const handleLogout = () => {
+    // Local storage logout - just clear tokens and reload
+    clearTokens();
+    localStorage.removeItem("user");
+    window.location.reload();
   };
 
   const toggleTheme = () => {

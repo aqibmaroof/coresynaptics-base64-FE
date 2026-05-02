@@ -2,17 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getMenuByRole } from "./sideBarData";
+import { sidebarItems } from "./sideBarData";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import config from "../../config";
-import {
-  getAccessToken,
-  getUser,
-  setUser,
-} from "@/services/instance/tokenService";
-import { getRoles } from "@/services/Roles";
-import { GetUser } from "@/services/auth";
+import { getUser } from "@/services/instance/tokenService";
 
 const formatRole = (role) => {
   if (!role) return "User";
@@ -36,16 +30,14 @@ const Sidebar = () => {
   }, []);
 
   useEffect(() => {
-    const user = JSON.parse(getUser());
-    const accessToken = getAccessToken();
+    // Get user from localStorage
+    const userStr = getUser();
+    const user = userStr ? JSON.parse(userStr) : null;
     setCurrentUser(user);
 
-    const items = getMenuByRole(user?.activeRole?.name || user?.platformRole);
-    setVisibleItems(items);
+    // Show ALL sidebar items without RBAC filtering
+    setVisibleItems(sidebarItems);
     setMounted(true);
-
-    getRolesList();
-    if (accessToken) getUserFromApi();
   }, []);
 
   // Auto-open the parent whose submenu contains the current pathname
@@ -56,25 +48,6 @@ const Sidebar = () => {
     );
     if (activeParent !== -1) setOpenIndex(activeParent);
   }, [pathname, visibleItems]);
-
-  const getUserFromApi = async () => {
-    const userResponse = await GetUser();
-    setUser({ user: userResponse });
-    setCurrentUser(userResponse);
-    const items = getMenuByRole(
-      userResponse?.activeRole?.name || userResponse?.platformRole
-    );
-    setVisibleItems(items);
-  };
-
-  const getRolesList = async () => {
-    try {
-      const res = await getRoles();
-      localStorage.setItem("roles", JSON.stringify(res));
-    } catch (error) {
-      console.log("Error Fetching Roles:", error);
-    }
-  };
 
   const toggleSubmenu = (index) => {
     setOpenIndex(openIndex === index ? null : index);
