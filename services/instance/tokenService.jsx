@@ -21,8 +21,22 @@ export const setOrganization = ({ organization }) => {
     localStorage.setItem("organization", JSON.stringify(organization));
 };
 
-export const getUser = () =>
-  typeof window !== "undefined" ? localStorage.getItem("user") : null;
+// Mock user for development when no user is stored
+const MOCK_USER = {
+  firstName: "Dev",
+  lastName: "User",
+  role: "admin",
+  platformRole: "admin",
+  activeRole: { name: "admin" },
+  organizationName: "Development",
+};
+
+export const getUser = () => {
+  if (typeof window === "undefined") return null;
+  const storedUser = localStorage.getItem("user");
+  // Return mock user if no user is stored (for development)
+  return storedUser || JSON.stringify(MOCK_USER);
+};
 
 export const clearTokens = () => {
   if (typeof window === "undefined") return;

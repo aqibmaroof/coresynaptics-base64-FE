@@ -63,9 +63,10 @@ const Layout = ({ children }) => {
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, []);
 
-  useEffect(() => {
-    if (!getAccessToken()) router.replace("/Auth/Login");
-  }, []);
+  // Authentication check disabled for development
+  // useEffect(() => {
+  //   if (!getAccessToken()) router.replace("/Auth/Login");
+  // }, []);
 
   const handleLogout = async () => {
     try {

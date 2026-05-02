@@ -72,7 +72,8 @@ axiosInstance.interceptors.response.use(
 
         if (!refreshToken && token) {
           clearTokens();
-          window.location.href = "/Auth/Login";
+          // Login redirect disabled for development
+          // window.location.href = "/Auth/Login";
           return Promise.reject(error);
         }
 
