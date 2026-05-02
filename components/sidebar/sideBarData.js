@@ -127,7 +127,7 @@ export const ROLES = {
   INTEGRATOR_CX_TECH: "integrator_cx_tech",
   INTEGRATOR_SAFETY: "integrator_safety",
   INTEGRATOR_WARRANTY: "integrator_warranty",
-  // ── OPERATIONS ───────────────────────────────────────────────────────────────
+  // ── OPERATIONS ──────────────────────────────────────────────────���────────────
   OPS_EXEC: "ops_exec",
   OPS_DIRECTOR: "ops_director",
   OPS_FACILITY_MANAGER: "ops_facility_manager",
@@ -1280,29 +1280,13 @@ export const sidebarItems = [
 ];
 
 /**
- * Returns sidebar items filtered by role, with an optional second-layer
- * filter on accessibleModules (array of title strings from the user object).
- * When accessibleModules is present and non-empty, top-level items are only
- * shown if their title appears in the list (case-insensitive).
- * Falls back to role-only filtering when accessibleModules is null/undefined/empty.
+ * Returns all sidebar items without role-based filtering.
+ * RBAC disabled for development - all menu items are visible.
  */
 export function getMenuByRole(role, accessibleModules) {
-  const moduleSet =
-    Array.isArray(accessibleModules) && accessibleModules.length > 0
-      ? new Set(accessibleModules.map((m) => m.toLowerCase()))
-      : null;
-
-  return sidebarItems
-    .filter((item) => {
-      if (item.roles && !item.roles.includes(role)) return false;
-      if (moduleSet && !moduleSet.has((item.title || "").toLowerCase()))
-        return false;
-      return true;
-    })
-    .map((item) => ({
-      ...item,
-      submenu: (item.submenu || []).filter(
-        (sub) => !sub.roles || sub.roles.includes(role),
-      ),
-    }));
+  // RBAC disabled - return all items with all submenus
+  return sidebarItems.map((item) => ({
+    ...item,
+    submenu: item.submenu || [],
+  }));
 }
