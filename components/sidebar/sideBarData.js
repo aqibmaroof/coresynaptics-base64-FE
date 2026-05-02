@@ -127,7 +127,7 @@ export const ROLES = {
   INTEGRATOR_CX_TECH: "integrator_cx_tech",
   INTEGRATOR_SAFETY: "integrator_safety",
   INTEGRATOR_WARRANTY: "integrator_warranty",
-  // ── OPERATIONS ───────────────────────────────────────────────────────────────
+  // ── OPERATIONS ──────────────────────────────────────────────────���────────────
   OPS_EXEC: "ops_exec",
   OPS_DIRECTOR: "ops_director",
   OPS_FACILITY_MANAGER: "ops_facility_manager",
@@ -385,21 +385,6 @@ export const sidebarItems = [
     ],
   },
 
-  // ─── Projects ───────────────────────────────────────────────────────
-  {
-    title: "Projects",
-    icon: config?.chart,
-    iconActive: config?.home,
-    path: "/Projects",
-    type: "link",
-    submenu: [],
-    roles: union(EXEC_ROLES, PM_ROLES, PLATFORM, [
-      ROLES.QA_QC,
-      ROLES.CUSTOMER_OWNER_REP,
-      ROLES.CC_OWNER_REP,
-    ]),
-  },
-
   // ─── CRM ────────────────────────────────────────────────────────────
   {
     title: "CRM",
@@ -430,6 +415,12 @@ export const sidebarItems = [
     type: "link",
     roles: ALL,
     submenu: [
+      {
+        title: "Projects",
+        type: "link",
+        path: "/Projects",
+        roles: ALL,
+      },
       {
         title: "Checklists",
         type: "link",
