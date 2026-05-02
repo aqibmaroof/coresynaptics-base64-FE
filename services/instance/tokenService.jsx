@@ -10,9 +10,13 @@ export const setTokens = ({ accessToken, refreshToken }) => {
   refreshToken && localStorage.setItem("refreshToken", refreshToken);
 };
 
-export const setUser = ({ user }) => {
+export const setUser = (user) => {
   if (typeof window === "undefined") return;
-  user && localStorage.setItem("user", JSON.stringify(user));
+  if (typeof user === "string") {
+    localStorage.setItem("user", user);
+  } else if (user) {
+    localStorage.setItem("user", JSON.stringify(user));
+  }
 };
 
 export const setOrganization = ({ organization }) => {
