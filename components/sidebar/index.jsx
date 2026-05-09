@@ -131,106 +131,238 @@ const Sidebar = () => {
       {/* Divider */}
       <img src={config?.h_line} className="px-4 mt-2 mb-4" alt="" />
 
-      {/* ── Navigation ────────────────────────────────────────── */}
-      <ul className="list-none m-0 p-0 mb-15">
-        {visibleItems.map((item, index) => {
-          const parentActive = isParentActive(item);
-          const isOpen = openIndex === index;
+      {/* ── Navigation - Grouped by Section ────────────────────────────────────────── */}
+      <nav className="mb-15">
+        {(() => {
+          // Group items by section
+          const sections = {};
+          const noSection = [];
+          
+          visibleItems.forEach((item, index) => {
+            if (item.section) {
+              if (!sections[item.section]) {
+                sections[item.section] = [];
+              }
+              sections[item.section].push({ ...item, originalIndex: index });
+            } else {
+              noSection.push({ ...item, originalIndex: index });
+            }
+          });
+
+          // Define section order
+          const sectionOrder = [
+            "Workspace",
+            "Project",
+            "Operations",
+            "GC QA/QC Toolkit",
+            "Communication",
+            "Learning",
+            "My Company",
+            "Portfolio",
+          ];
 
           return (
-            <li key={index}>
-              {/* Parent row */}
-              <div
-                className={`flex items-center py-3 w-[250px] mx-4 rounded-xl h-auto px-4 cursor-pointer transition-all duration-150 ${
-                  parentActive
-                    ? isDark
-                      ? "bg-slate-700/70 border border-slate-600/60"
-                      : "bg-slate-200/80 border border-slate-300"
-                    : isDark
-                      ? "hover:bg-slate-700/40 border border-transparent"
-                      : "hover:bg-slate-200/60 border border-transparent"
-                }`}
-                onClick={() => {
-                  if (item.submenu?.length > 0) {
-                    toggleSubmenu(index);
-                  } else if (
-                    item.title === "View Website" ||
-                    item.title === "Support"
-                  ) {
-                    window.open(item.path, "_blank");
-                  } else {
-                    router.push(item.path);
-                  }
-                }}
-              >
-                <img
-                  src={parentActive ? item?.iconActive : item.icon}
-                  className={`mr-3 p-1.5 rounded-lg w-8 h-8 object-contain ${
-                    parentActive
-                      ? "bg-[#0075FF]"
-                      : isDark
-                        ? "bg-slate-800"
-                        : "bg-slate-200"
-                  }`}
-                  alt=""
-                />
-                <span
-                  className={`flex-1 text-[13px] font-medium ${
-                    parentActive
-                      ? isDark
-                        ? "text-white"
-                        : "text-slate-900"
-                      : isDark
-                        ? "text-slate-300"
-                        : "text-slate-700"
-                  }`}
-                >
-                  {item.title}
-                </span>
-                {item.submenu?.length > 0 && (
-                  <span
-                    className={`text-[10px] ${
-                      isDark ? "text-slate-500" : "text-slate-400"
-                    }`}
-                  >
-                    {isOpen ? <FaChevronDown /> : <FaChevronRight />}
-                  </span>
-                )}
-              </div>
+            <>
+              {sectionOrder.map((sectionName) => {
+                const sectionItems = sections[sectionName];
+                if (!sectionItems || sectionItems.length === 0) return null;
 
-              {/* Submenu */}
-              {item.submenu?.length > 0 && isOpen && (
-                <ul className="list-none mt-1 pl-6 pr-4">
-                  {item.submenu.map((sub, subIdx) => {
-                    const subActive = sub.path === pathname;
+                return (
+                  <div key={sectionName} className="mb-4">
+                    {/* Section Label */}
+                    <div className={`px-6 py-2 text-[10px] font-bold uppercase tracking-wider ${
+                      isDark ? "text-slate-500" : "text-slate-400"
+                    } ${sectionName === "GC QA/QC Toolkit" ? (isDark ? "text-cyan-400" : "text-sky-600") : ""}`}>
+                      {sectionName}
+                    </div>
+
+                    {/* Section Items */}
+                    <ul className="list-none m-0 p-0">
+                      {sectionItems.map((item) => {
+                        const parentActive = isParentActive(item);
+                        const isOpen = openIndex === item.originalIndex;
+
+                        return (
+                          <li key={item.originalIndex}>
+                            <div
+                              className={`flex items-center py-2.5 w-[250px] mx-4 rounded-xl h-auto px-3 cursor-pointer transition-all duration-150 ${
+                                parentActive
+                                  ? isDark
+                                    ? "bg-slate-700/70 border border-slate-600/60"
+                                    : "bg-slate-200/80 border border-slate-300"
+                                  : isDark
+                                    ? "hover:bg-slate-700/40 border border-transparent"
+                                    : "hover:bg-slate-200/60 border border-transparent"
+                              }`}
+                              onClick={() => {
+                                if (item.submenu?.length > 0) {
+                                  toggleSubmenu(item.originalIndex);
+                                } else {
+                                  router.push(item.path);
+                                }
+                              }}
+                            >
+                              <span
+                                className={`flex-1 text-[13px] font-medium ${
+                                  parentActive
+                                    ? isDark
+                                      ? "text-white"
+                                      : "text-slate-900"
+                                    : isDark
+                                      ? "text-slate-300"
+                                      : "text-slate-700"
+                                }`}
+                              >
+                                {item.title}
+                              </span>
+                              {item.submenu?.length > 0 && (
+                                <span
+                                  className={`text-[10px] ${
+                                    isDark ? "text-slate-500" : "text-slate-400"
+                                  }`}
+                                >
+                                  {isOpen ? <FaChevronDown /> : <FaChevronRight />}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Submenu */}
+                            {item.submenu?.length > 0 && isOpen && (
+                              <ul className="list-none mt-1 pl-6 pr-4">
+                                {item.submenu.map((sub, subIdx) => {
+                                  const subActive = sub.path === pathname;
+                                  return (
+                                    <li key={subIdx}>
+                                      <Link
+                                        href={sub.path}
+                                        className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] transition-colors no-underline ${
+                                          subActive
+                                            ? isDark
+                                              ? "bg-slate-700/60 text-white font-semibold"
+                                              : "bg-slate-200 text-slate-900 font-semibold"
+                                            : isDark
+                                              ? "text-slate-400 hover:text-white hover:bg-slate-700/30"
+                                              : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                                        }`}
+                                      >
+                                        {subActive && (
+                                          <span className="w-1.5 h-1.5 rounded-full bg-[#0075FF] shrink-0" />
+                                        )}
+                                        {sub.title}
+                                      </Link>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+
+              {/* Items without section (legacy) */}
+              {noSection.length > 0 && (
+                <ul className="list-none m-0 p-0">
+                  {noSection.map((item) => {
+                    const parentActive = isParentActive(item);
+                    const isOpen = openIndex === item.originalIndex;
+
                     return (
-                      <li key={subIdx}>
-                        <Link
-                          href={sub.path}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] transition-colors no-underline ${
-                            subActive
+                      <li key={item.originalIndex}>
+                        <div
+                          className={`flex items-center py-2.5 w-[250px] mx-4 rounded-xl h-auto px-3 cursor-pointer transition-all duration-150 ${
+                            parentActive
                               ? isDark
-                                ? "bg-slate-700/60 text-white font-semibold"
-                                : "bg-slate-200 text-slate-900 font-semibold"
+                                ? "bg-slate-700/70 border border-slate-600/60"
+                                : "bg-slate-200/80 border border-slate-300"
                               : isDark
-                                ? "text-slate-400 hover:text-white hover:bg-slate-700/30"
-                                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                                ? "hover:bg-slate-700/40 border border-transparent"
+                                : "hover:bg-slate-200/60 border border-transparent"
                           }`}
+                          onClick={() => {
+                            if (item.submenu?.length > 0) {
+                              toggleSubmenu(item.originalIndex);
+                            } else {
+                              router.push(item.path);
+                            }
+                          }}
                         >
-                          {subActive && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#0075FF] shrink-0" />
+                          <img
+                            src={parentActive ? item?.iconActive : item.icon}
+                            className={`mr-3 p-1.5 rounded-lg w-8 h-8 object-contain ${
+                              parentActive
+                                ? "bg-[#0075FF]"
+                                : isDark
+                                  ? "bg-slate-800"
+                                  : "bg-slate-200"
+                            }`}
+                            alt=""
+                          />
+                          <span
+                            className={`flex-1 text-[13px] font-medium ${
+                              parentActive
+                                ? isDark
+                                  ? "text-white"
+                                  : "text-slate-900"
+                                : isDark
+                                  ? "text-slate-300"
+                                  : "text-slate-700"
+                            }`}
+                          >
+                            {item.title}
+                          </span>
+                          {item.submenu?.length > 0 && (
+                            <span
+                              className={`text-[10px] ${
+                                isDark ? "text-slate-500" : "text-slate-400"
+                              }`}
+                            >
+                              {isOpen ? <FaChevronDown /> : <FaChevronRight />}
+                            </span>
                           )}
-                          {sub.title}
-                        </Link>
+                        </div>
+
+                        {/* Submenu */}
+                        {item.submenu?.length > 0 && isOpen && (
+                          <ul className="list-none mt-1 pl-6 pr-4">
+                            {item.submenu.map((sub, subIdx) => {
+                              const subActive = sub.path === pathname;
+                              return (
+                                <li key={subIdx}>
+                                  <Link
+                                    href={sub.path}
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] transition-colors no-underline ${
+                                      subActive
+                                        ? isDark
+                                          ? "bg-slate-700/60 text-white font-semibold"
+                                          : "bg-slate-200 text-slate-900 font-semibold"
+                                        : isDark
+                                          ? "text-slate-400 hover:text-white hover:bg-slate-700/30"
+                                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                                    }`}
+                                  >
+                                    {subActive && (
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#0075FF] shrink-0" />
+                                    )}
+                                    {sub.title}
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
                       </li>
                     );
                   })}
                 </ul>
               )}
-            </li>
+            </>
           );
-        })}
-      </ul>
+        })()}
+      </nav>
 
       {/* ── Need Help Card ────────────────────────────────────── */}
       {isDark ? (

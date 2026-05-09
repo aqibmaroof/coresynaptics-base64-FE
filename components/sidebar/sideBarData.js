@@ -127,7 +127,7 @@ export const ROLES = {
   INTEGRATOR_CX_TECH: "integrator_cx_tech",
   INTEGRATOR_SAFETY: "integrator_safety",
   INTEGRATOR_WARRANTY: "integrator_warranty",
-  // ── OPERATIONS ──────────────────────────────────────────────────�����────────────
+  // ── OPERATIONS ──────────────────────────────────────────────────�������────────────
   OPS_EXEC: "ops_exec",
   OPS_DIRECTOR: "ops_director",
   OPS_FACILITY_MANAGER: "ops_facility_manager",
@@ -315,76 +315,382 @@ const SALES_ROLES = [
 ];
 
 export const sidebarItems = [
-  // ─── Dashboards ─────────────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════════════
+  // WORKSPACE SECTION
+  // ═══════════════════════════════════════════════════════════════════
   {
-    title: "Dashboards",
+    title: "Dashboard",
     icon: config?.chart,
     iconActive: config?.home,
     path: "/",
     type: "link",
     roles: ALL,
-    submenu: [
-      {
-        title: "GC Dashboard",
-        type: "link",
-        path: "/",
-        roles: [
-          ROLES.GC_PM,
-          ROLES.GC_ADMIN,
-          ROLES.SUPERADMIN,
-          ROLES.PLATFORM_ADMIN,
-        ],
-      },
-      {
-        title: "OEM Dashboard",
-        type: "link",
-        path: "/OEM/Dashboard",
-        roles: [
-          ROLES.OEM_PM,
-          ROLES.OEM_ADMIN,
-          ROLES.SUPERADMIN,
-          ROLES.PLATFORM_ADMIN,
-        ],
-      },
-      {
-        title: "FSM Dashboard",
-        type: "link",
-        path: "/Dispatch/Dashboard",
-        roles: [ROLES.FSM, ROLES.SUPERADMIN, ROLES.PLATFORM_ADMIN],
-      },
-      {
-        title: "Field Dashboard",
-        type: "link",
-        path: "/Field/Dashboard",
-        roles: [ROLES.SUPERINTENDENT, ROLES.SUPERADMIN, ROLES.PLATFORM_ADMIN],
-      },
-      {
-        title: "QA/QC Dashboard",
-        type: "link",
-        path: "/QAQC/Dashboard",
-        roles: [ROLES.QA_QC, ROLES.SUPERADMIN, ROLES.PLATFORM_ADMIN],
-      },
-      {
-        title: "Safety Dashboard",
-        type: "link",
-        path: "/Safety/Audits",
-        roles: [ROLES.SAFETY, ROLES.SUPERADMIN, ROLES.PLATFORM_ADMIN],
-      },
-      {
-        title: "Finance Dashboard",
-        type: "link",
-        path: "/Finance/Dashboard",
-        roles: [ROLES.FINANCE, ROLES.SUPERADMIN, ROLES.PLATFORM_ADMIN],
-      },
-      {
-        title: "Executive Dashboard",
-        type: "link",
-        path: "/Executive/Dashboard",
-        roles: [ROLES.EXECUTIVE, ROLES.SUPERADMIN, ROLES.PLATFORM_ADMIN],
-      },
-    ],
+    submenu: [],
+    section: "Workspace",
+  },
+  {
+    title: "My Work",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/MyWork",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Workspace",
+  },
+  {
+    title: "Announcements",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Announcements",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Workspace",
+  },
+  {
+    title: "Chat",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Chat",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Workspace",
+  },
+  {
+    title: "Daily Field Log",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/DailyLog",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Workspace",
+  },
+  {
+    title: "Crew Dispatch",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/CrewDispatch",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Workspace",
   },
 
+  // ═══════════════════════════════════════════════════════════════════
+  // PROJECT SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "Projects",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Projects",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Project",
+  },
+  {
+    title: "Companies",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Company/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Project",
+  },
+  {
+    title: "Equipment",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Equipment/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Project",
+  },
+  {
+    title: "Schedule (Gantt)",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Schedule",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Project",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // OPERATIONS SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "QA/QC Checklists",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Checklist/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+  {
+    title: "ITRs",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/ITR/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+  {
+    title: "Issues",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Issues/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+  {
+    title: "NCRs",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/NCR/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+  {
+    title: "Hold/Witness Points",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/HoldPoints",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+  {
+    title: "Punch List",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/PunchList",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+  {
+    title: "Test Results",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/TestResults",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Operations",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // COMMUNICATION SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "RFIs",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/RFI/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Communication",
+  },
+  {
+    title: "Documents",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Documents",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Communication",
+  },
+  {
+    title: "Photos",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Photos",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Communication",
+  },
+  {
+    title: "Site Arrivals (TARF)",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/TARF/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Communication",
+  },
+  {
+    title: "Activity Feed",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Activity",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Communication",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // GC QA/QC TOOLKIT SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "Cx Score",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/CxScore",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "GC QA/QC Toolkit",
+  },
+  {
+    title: "Cx Master Log",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/CxLog",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "GC QA/QC Toolkit",
+  },
+  {
+    title: "PSSR - Pre-Startup",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/PSSR",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "GC QA/QC Toolkit",
+  },
+  {
+    title: "Risk Register",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/RiskRegister",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "GC QA/QC Toolkit",
+  },
+  {
+    title: "Turnover Package",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/TurnoverPackage",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "GC QA/QC Toolkit",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // LEARNING SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "Training & Library",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Training",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Learning",
+  },
+  {
+    title: "Phase Reference",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/PhaseReference",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Learning",
+  },
+  {
+    title: "Cx Flow Diagram",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/CxFlow",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Learning",
+  },
+  {
+    title: "Glossary",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Glossary",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Learning",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // MY COMPANY SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "Team",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Team/List",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "My Company",
+  },
+  {
+    title: "Billing & Invoices",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Billing",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "My Company",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PORTFOLIO SECTION
+  // ═══════════════════════════════════════════════════════════════════
+  {
+    title: "All My Projects",
+    icon: config?.chart,
+    iconActive: config?.home,
+    path: "/Portfolio",
+    type: "link",
+    roles: ALL,
+    submenu: [],
+    section: "Portfolio",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // LEGACY SECTIONS (keeping for backward compatibility)
+  // ═══════════════════════════════════════════════════════════════════
+  
   // ─── CRM ────────────────────────────────────────────────────────────
   {
     title: "CRM",
@@ -395,109 +701,9 @@ export const sidebarItems = [
     roles: ALL,
     submenu: [
       { title: "Leads", type: "link", path: "/CRM/Leads/List", roles: ALL },
-      { title: "Companies", type: "link", path: "/Company/List", roles: ALL },
-      {
-        title: "Contacts",
-        type: "link",
-        path: "/CRM/Contacts/List",
-        roles: ALL,
-      },
+      { title: "Contacts", type: "link", path: "/CRM/Contacts/List", roles: ALL },
       { title: "Deals", type: "link", path: "/CRM/Deals/List", roles: ALL },
     ],
-  },
-
-  // ─── Operations ─────────────────────────────────────────────────────
-  {
-    title: "Operations",
-    icon: config?.chart,
-    iconActive: config?.home,
-    path: "/Checklist/List",
-    type: "link",
-    roles: ALL,
-    submenu: [
-      {
-        title: "Checklists",
-        type: "link",
-        path: "/Checklist/List",
-        roles: ALL,
-      },
-      {
-        title: "Tasks",
-        type: "link",
-        path: "/Tasks/List",
-        roles: union(SUPERINTENDENT_ROLES, FIELD_WORKER_ROLES, PLATFORM, [
-          ROLES.FSE,
-          ROLES.ASP,
-        ]),
-      },
-      {
-        title: "Issues",
-        type: "link",
-        path: "/Issues/List",
-        roles: union(
-          EXEC_ROLES,
-          PM_ROLES,
-          SUPERINTENDENT_ROLES,
-          FIELD_WORKER_ROLES,
-          SAFETY_QA_ROLES,
-          PLATFORM,
-        ),
-      },
-      {
-        title: "RFIs",
-        type: "link",
-        path: "/RFI/List",
-        roles: ALL,
-      },
-      {
-        title: "Meetings",
-        type: "link",
-        path: "/Meeting/List",
-        roles: ALL,
-      },
-      {
-        title: "Site Access (TARF)",
-        type: "link",
-        path: "/TARF/List",
-        roles: union(
-          EXEC_ROLES,
-          PM_ROLES,
-          SUPERINTENDENT_ROLES,
-          SAFETY_QA_ROLES,
-          PLATFORM,
-          [ROLES.FSE, ROLES.ASP],
-        ),
-      },
-      {
-        title: "Change Requests",
-        type: "link",
-        path: "/ChangeRequests",
-        roles: union(EXEC_ROLES, PM_ROLES, PLATFORM),
-      },
-      {
-        title: "Communications",
-        type: "link",
-        path: "/Communications",
-        roles: union(
-          EXEC_ROLES,
-          PM_ROLES,
-          SUPERINTENDENT_ROLES,
-          SAFETY_QA_ROLES,
-          PLATFORM,
-        ),
-      },
-    ],
-  },
-
-  // ─── Projects ───────────────────────────────────────────────────────
-  {
-    title: "Projects",
-    icon: config?.chart,
-    iconActive: config?.home,
-    path: "/Projects",
-    type: "link",
-    submenu: [],
-    roles: ALL,
   },
 
   // ─── Scheduling ─────────────────────────────────────────────────────
